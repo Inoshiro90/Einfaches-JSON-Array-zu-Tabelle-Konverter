@@ -24,38 +24,26 @@
         }
     </style>
     <script>
-      function convertToTable() {
-          var inputText = document.getElementById("inputText").value;
-          try {
-              var data = JSON.parse(inputText);
-              var outputTable = document.getElementById("outputTable");
-              var tableHTML = "<table><tr>";
-              
-              if (Array.isArray(data) && data.length > 0) {
-                  var headers = Object.keys(data[0]);
-                  headers.forEach(header => {
-                      tableHTML += "<th>" + header + "</th>";
-                  });
-                  
-                  tableHTML += "</tr>";
-                  
-                  data.forEach(item => {
-                      tableHTML += "<tr>";
-                      headers.forEach(header => {
-                          tableHTML += "<td>" + item[header] + "</td>";
-                      });
-                      tableHTML += "</tr>";
-                  });
-                  
-                  tableHTML += "</table>";
-                  outputTable.innerHTML = tableHTML;
-              } else {
-                  alert("Das Array ist leer oder ungültig!");
-              }
-          } catch (error) {
-              alert("Ungültiges JSON-Format!");
-          }
-      }
+     function convertToTable() {
+            var inputText = document.getElementById("inputText").value;
+            try {
+                var data = JSON.parse(inputText);
+                var outputTable = document.getElementById("outputTable");
+                var tableHTML = "<table><tr>";
+
+                if (Array.isArray(data) && data.length > 0) {
+                    data.forEach(item => {
+                        tableHTML += "<td>" + item + "</td>";
+                    });
+                    tableHTML += "</tr></table>";
+                    outputTable.innerHTML = tableHTML;
+                } else {
+                    alert("Das Array ist leer oder ungültig!");
+                }
+            } catch (error) {
+                alert("Ungültiges JSON-Format!");
+            }
+        }
       
       function copyToClipboard() {
           var table = document.getElementById("outputTable").innerHTML;
