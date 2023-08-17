@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Verschachteltes Array in Tabelle umwandeln</title>
+    <title>JSON-Array in Tabelle umwandeln</title>
     <style>
         table {
             border-collapse: collapse;
@@ -24,7 +24,7 @@
         }
     </style>
     <script>
-     function convertToTable() {
+             function convertToTable() {
             var inputText = document.getElementById("inputText").value;
             try {
                 var data = JSON.parse(inputText);
@@ -32,10 +32,13 @@
                 var tableHTML = "<table><tr>";
 
                 if (Array.isArray(data) && data.length > 0) {
+                    tableHTML += "<th>Element</th></tr>";
+
                     data.forEach(item => {
-                        tableHTML += "<td>" + item + "</td>";
+                        tableHTML += "<tr><td>" + item + "</td></tr>";
                     });
-                    tableHTML += "</tr></table>";
+
+                    tableHTML += "</table>";
                     outputTable.innerHTML = tableHTML;
                 } else {
                     alert("Das Array ist leer oder ungültig!");
@@ -62,8 +65,8 @@
     </script>
 </head>
 <body>
-    <h1>Verschachteltes Array in Tabelle umwandeln</h1>
-    <textarea id="inputText" rows="20" cols="70" placeholder='Gib das verschachtelte Array im JSON-Format ein'></textarea><br>
+    <h1>JSON-Array in Tabelle umwandeln</h1>
+    <textarea id="inputText" rows="20" cols="70" placeholder='Gib das Array im JSON-Format ein'></textarea><br>
     <button onclick="convertToTable()">Konvertieren</button>
     <button onclick="copyToClipboard()">In Zwischenablage kopieren</button>
     <button onclick="clearInput()">Eingabe leeren</button>
