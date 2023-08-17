@@ -1,1 +1,85 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verschachteltes Array in Tabelle umwandeln</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .subtable {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .subtable th, .subtable td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
+      function convertToTable() {
+          var inputText = document.getElementById("inputText").value;
+          try {
+              var data = JSON.parse(inputText);
+              var outputTable = document.getElementById("outputTable");
+              var tableHTML = "<table><tr>";
+              
+              if (Array.isArray(data) && data.length > 0) {
+                  var headers = Object.keys(data[0]);
+                  headers.forEach(header => {
+                      tableHTML += "<th>" + header + "</th>";
+                  });
+                  
+                  tableHTML += "</tr>";
+                  
+                  data.forEach(item => {
+                      tableHTML += "<tr>";
+                      headers.forEach(header => {
+                          tableHTML += "<td>" + item[header] + "</td>";
+                      });
+                      tableHTML += "</tr>";
+                  });
+                  
+                  tableHTML += "</table>";
+                  outputTable.innerHTML = tableHTML;
+              } else {
+                  alert("Das Array ist leer oder ungültig!");
+              }
+          } catch (error) {
+              alert("Ungültiges JSON-Format!");
+          }
+      }
+      
+      function copyToClipboard() {
+          var table = document.getElementById("outputTable").innerHTML;
+          var tempInput = document.createElement("textarea");
+          document.body.appendChild(tempInput);
+          tempInput.value = table;
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+          alert("Tabelle wurde in die Zwischenablage kopiert!");
+      }
+      
+      function clearInput() {
+          document.getElementById("inputText").value = "";
+      }
+    </script>
+</head>
+<body>
+    <h1>Verschachteltes Array in Tabelle umwandeln</h1>
+    <textarea id="inputText" rows="20" cols="70" placeholder='Gib das verschachtelte Array im JSON-Format ein'></textarea><br>
+    <button onclick="convertToTable()">Konvertieren</button>
+    <button onclick="copyToClipboard()">In Zwischenablage kopieren</button>
+    <button onclick="clearInput()">Eingabe leeren</button>
+    <div id="outputTable"></div>
+</body>
+  </html>
+  
